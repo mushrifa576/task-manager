@@ -1,34 +1,161 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="bg-white rounded-xl shadow-sm p-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">New Task</h2>
+@section('title', 'Create Task')
 
-        <form action="{{ route('tasks.store') }}" method="POST" class="space-y-4">
+@section('content')
+
+<div class="max-w-2xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-6">
+
+        <a href="{{ route('tasks.index') }}"
+           class="inline-flex items-center gap-2
+                  text-sm text-slate-500
+                  hover:text-indigo-600 transition mb-4">
+
+            ← Back to tasks
+
+        </a>
+
+        <h2 class="text-3xl font-bold text-slate-900">
+            Create New Task
+        </h2>
+
+        <p class="text-slate-500 mt-1">
+            Add a new task to your workspace.
+        </p>
+
+    </div>
+
+
+    <!-- Form Card -->
+    <div class="bg-white rounded-2xl
+                border border-slate-200
+                shadow-sm p-6 sm:p-8">
+
+        <form action="{{ route('tasks.store') }}"
+              method="POST"
+              class="space-y-6">
+
             @csrf
 
+
+            <!-- Title -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                <input type="text" name="title" required
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+
+                <label for="title"
+                       class="block text-sm font-semibold
+                              text-slate-700 mb-2">
+
+                    Task Title
+
+                </label>
+
+                <input
+                    id="title"
+                    type="text"
+                    name="title"
+                    value="{{ old('title') }}"
+                    placeholder="Enter task title"
+                    required
+                    class="w-full px-4 py-3
+                           border border-slate-300
+                           rounded-xl
+                           bg-white
+                           text-slate-800
+                           placeholder-slate-400
+                           focus:outline-none
+                           focus:ring-2 focus:ring-indigo-500
+                           focus:border-indigo-500
+                           transition">
+
+                @error('title')
+                    <p class="text-sm text-red-600 mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
 
+
+            <!-- Description -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <textarea name="description" rows="3"
-                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"></textarea>
+
+                <label for="description"
+                       class="block text-sm font-semibold
+                              text-slate-700 mb-2">
+
+                    Description
+
+                    <span class="font-normal text-slate-400">
+                        (optional)
+                    </span>
+
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    placeholder="Describe your task..."
+                    class="w-full px-4 py-3
+                           border border-slate-300
+                           rounded-xl
+                           bg-white
+                           text-slate-800
+                           placeholder-slate-400
+                           resize-none
+                           focus:outline-none
+                           focus:ring-2 focus:ring-indigo-500
+                           focus:border-indigo-500
+                           transition">{{ old('description') }}</textarea>
+
+                @error('description')
+                    <p class="text-sm text-red-600 mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
 
-            <div class="flex gap-3 pt-2">
-                <button type="submit"
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">
-                    Save Task
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3
+                        pt-2">
+
+                <button
+                    type="submit"
+                    class="flex-1 bg-indigo-600
+                           hover:bg-indigo-700
+                           text-white font-semibold
+                           px-5 py-3 rounded-xl
+                           shadow-sm hover:shadow
+                           transition">
+
+                    Create Task
+
                 </button>
+
                 <a href="{{ route('tasks.index') }}"
-                   class="text-gray-500 hover:text-gray-700 text-sm font-medium px-4 py-2">
+                   class="flex-1 text-center
+                          bg-slate-100
+                          hover:bg-slate-200
+                          text-slate-700
+                          font-semibold
+                          px-5 py-3 rounded-xl
+                          transition">
+
                     Cancel
+
                 </a>
+
             </div>
+
         </form>
+
     </div>
+
+</div>
+
 @endsection
